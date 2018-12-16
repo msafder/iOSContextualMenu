@@ -195,8 +195,8 @@ extension ContextualMenu {
             contextualMenuItems.forEach { $0.mainItem.isHighlighted = false }
             return
         }
-        shadowView.bringSubview(toFront: item.mainItem)
-        shadowView.bringSubview(toFront: item.titleView)
+        shadowView.bringSubviewToFront(item.mainItem)
+        shadowView.bringSubviewToFront(item.titleView)
         currentlyHighlightedItem?.mainItem.isHighlighted = currentlyHighlightedItem?.mainItem == item.mainItem
         item.mainItem.isHighlighted = true
     }
@@ -235,7 +235,7 @@ extension ContextualMenu {
         guard delegate?.contextualMenuShouldActivate?(self) != false && !contextualMenuItems.isEmpty && shadowView.alpha == 0.0 && window != nil else { return }
         
         delegate?.contextualMenuDidActivate?(self)
-        shadowView.superview?.bringSubview(toFront: shadowView)
+        shadowView.superview?.bringSubviewToFront(shadowView)
 
         for item in contextualMenuItems {
             item.titleView.center = CGPoint(x: startingLocation.x, y: item.mainItem.frame.minY + item.titleView.frame.height.half)
@@ -279,7 +279,7 @@ extension ContextualMenu {
     }
     
     func animate(item: ContextualMenuItem, to location: CGPoint) {
-        shadowView.bringSubview(toFront: item.titleView)
+        shadowView.bringSubviewToFront(item.titleView)
 
         let menuItem = item.mainItem
         let titleView = item.titleView
